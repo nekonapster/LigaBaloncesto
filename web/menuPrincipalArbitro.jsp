@@ -115,7 +115,7 @@
                         Cargar Datos
                     </button>
                     <button
-                        class="nav-link"
+                        class="nav-link desabilitado"
                         id="v-pills-resultados-tab"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-resultados"
@@ -123,6 +123,7 @@
                         role="tab"
                         aria-controls="v-pills-resultados"
                         aria-selected="false"
+                        disabled
                         >
                         Ver resultados
                     </button>
@@ -149,17 +150,6 @@
                 <!-- CONTENIDO -->
                 <div class="marco2">
                     <div class="tab-content" id="v-pills-tabContent">
-
-
-                        <div
-                            class="tab-pane fade"
-                            id="v-pills-ligas"
-                            role="tabpanel"
-                            aria-labelledby="v-pills-ligas-tab">
-                            <%--<jsp:include page="/submenu/ligas.jsp" />--%>
-                        </div>
-
-
                         <div
                             class="tab-pane fade"
                             id="v-pills-datos"
@@ -174,7 +164,6 @@
                             aria-labelledby="v-pills-resultados-tab">
                             <jsp:include page="/submenu/resultados.jsp" />
                             <jsp:include page="/submenu/graficas.jsp" />
-
                         </div>
                         <div
                             class="tab-pane fade"

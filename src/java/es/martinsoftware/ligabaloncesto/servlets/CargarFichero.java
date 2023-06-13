@@ -1,10 +1,22 @@
 package es.martinsoftware.ligabaloncesto.servlets;
 
+import es.martinsoftware.ligabaloncesto.entities.Equipos;
+import es.martinsoftware.ligabaloncesto.entities.Jornadas;
+import es.martinsoftware.ligabaloncesto.entities.Ligas;
+import es.martinsoftware.ligabaloncesto.entities.Partidos;
+import es.martinsoftware.ligabaloncesto.entities.Usuarios;
+import es.martinsoftware.ligabaloncesto.modelos.dao.Dao;
+import es.martinsoftware.ligabaloncesto.modelos.dao.EquiposJpaController;
+import es.martinsoftware.ligabaloncesto.modelos.dao.JornadasJpaController;
+import es.martinsoftware.ligabaloncesto.modelos.dao.LigasJpaController;
+import es.martinsoftware.ligabaloncesto.modelos.dao.PartidosJpaController;
+import es.martinsoftware.ligabaloncesto.modelos.dao.UsuariosJpaController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,7 +31,42 @@ import javax.servlet.http.Part;
 public class CargarFichero extends HttpServlet {
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UsuariosJpaController ujc = Dao.getUsuariosJpaController();
+        List<Usuarios> usuarios = ujc.findUsuariosEntities();
+        request.setAttribute("usuarios", usuarios);
+
+        // Codigo para mostrar ligas en el menuPrincipalAdmin.jsp.
+        LigasJpaController ljc = Dao.getLigasJpaController();
+        List<Ligas> ligas = ljc.findLigasEntities();
+        request.setAttribute("ligas", ligas);
+
+        // Codigo para mostrar equipos en el menuPrincipalAdmin.jsp.
+        EquiposJpaController ejc = Dao.getEquiposJpaController();
+        List<Equipos> equipos = ejc.findEquiposEntities();
+        request.setAttribute("equipos", equipos);
+
+        // Codigo para mostrar equipos en el menuPrincipalAdmin.jsp.
+        JornadasJpaController jjc = Dao.getJornadasJpaController();
+        List<Jornadas> jornadas = jjc.findJornadasEntities();
+        request.setAttribute("jornadas", jornadas);
+
+        // Codigo para mostrar equipos en el menuPrincipalAdmin.jsp.
+        PartidosJpaController pjc = Dao.getPartidosJpaController();
+        List<Partidos> partidos = pjc.findPartidosEntities();
+        request.setAttribute("listaPartido", partidos);
+
+        List<Partidos> partido = pjc.findPartidosEntities();
+        request.setAttribute("partido", partido);
+
+        request.getRequestDispatcher("/Grafica").include(request, response);
+        request.getRequestDispatcher("/menuPrincipalArbitro.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        PartidosJpaController pjc = Dao.getPartidosJpaController();
         Part part = request.getPart("archivo");
         InputStream is = part.getInputStream();
 
@@ -27,7 +74,7 @@ public class CargarFichero extends HttpServlet {
             String line;
             int cont = 0;
             while ((line = reader.readLine()) != null) {
-                
+
                 //si la linea leida es vacia, ignorarla y seguir. 
                 if (line.isEmpty()) {
                     continue;
@@ -63,18 +110,14 @@ public class CargarFichero extends HttpServlet {
                 cont++;
             }
 
+//        List<Partidos> partido = pjc.findPartidosEntities();
+            List<Partidos> listaPartido = pjc.findPartidosEntities();
+
+//        request.setAttribute("partido", partido);
+            request.setAttribute("listaPartido", listaPartido);
+
+            request.getRequestDispatcher("/Grafica").include(request, response);
+            request.getRequestDispatcher("/menuPrincipalArbitro.jsp").forward(request, response);
         }
-
     }
-
-//    private String getFileName(Part part) {
-//        String contentDisposition = part.getHeader("content-disposition");
-//        String[] tokens = contentDisposition.split(";");
-//        for (String token : tokens) {
-//            if (token.trim().startsWith("filename")) {
-//                return token.substring(token.indexOf("=") + 2, token.length() - 1);
-//            }
-//        }
-//        return "";
-//    }
 }
