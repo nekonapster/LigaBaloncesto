@@ -105,19 +105,19 @@ public class CargarFichero extends HttpServlet {
                         System.out.println("-------------------");
                         System.out.println(puntosEquipoLocal);
                         System.out.println(puntosEquipoVisitante);
+                        request.setAttribute("puntosEquipoLocal", puntosEquipoLocal);
+                        request.setAttribute("puntosEquipoVisitante", puntosEquipoVisitante);
                 }
 
                 cont++;
             }
 
-//        List<Partidos> partido = pjc.findPartidosEntities();
+            List<Partidos> partido = pjc.findPartidosEntities();
             List<Partidos> listaPartido = pjc.findPartidosEntities();
 
-//        request.setAttribute("partido", partido);
+            request.setAttribute("partido", partido);
             request.setAttribute("listaPartido", listaPartido);
-
-            request.getRequestDispatcher("/Grafica").include(request, response);
-            request.getRequestDispatcher("/menuPrincipalArbitro.jsp").forward(request, response);
+            request.getRequestDispatcher("/menuPrincipalArbitro2.jsp").forward(request, response);
         }
     }
 }

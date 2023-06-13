@@ -162,8 +162,8 @@
                             id="v-pills-resultados"
                             role="tabpanel"
                             aria-labelledby="v-pills-resultados-tab">
-                            <jsp:include page="/submenu/resultados.jsp" />
-                            <jsp:include page="/submenu/graficas.jsp" />
+                            <%--<jsp:include page="/submenu/resultados.jsp" />--%>
+                            <%--<jsp:include page="/submenu/graficas.jsp" />--%>
                         </div>
                         <div
                             class="tab-pane fade"

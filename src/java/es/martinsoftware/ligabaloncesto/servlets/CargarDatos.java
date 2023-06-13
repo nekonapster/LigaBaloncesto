@@ -99,8 +99,8 @@ public class CargarDatos extends HttpServlet {
             List<Partidos> listaPartido = pjc.findPartidosEntities();
 
             request.setAttribute("listaPartido", listaPartido);
-
             request.setAttribute("partido", partido);
+ 
             request.getRequestDispatcher("/menuPrincipalArbitro.jsp").forward(request, response);
 
         } catch (Exception ex) {
