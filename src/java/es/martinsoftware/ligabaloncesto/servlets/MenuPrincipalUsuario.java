@@ -3,14 +3,16 @@ servlet MenuPrincipalUsuario, controla la llegada del administrador, perimitiend
  */
 package es.martinsoftware.ligabaloncesto.servlets;
 
-import static es.martinsoftware.ligabaloncesto.literals.Literals.LIT_VIEW_LOGIN;
+import es.martinsoftware.ligabaloncesto.entities.Partidos;
+import es.martinsoftware.ligabaloncesto.modelos.dao.Dao;
+import es.martinsoftware.ligabaloncesto.modelos.dao.PartidosJpaController;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,16 +24,27 @@ public class MenuPrincipalUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session != null) {
-            //cuando voy del controlador a la vista usar el forward!!!!!!!!!
-            response.sendRedirect("./menuPrincipalUsuario.jsp");
-            return;
-        } else {
-            // La sesión no existe o ha expirado, redirigir a la página de inicio.html
-            response.sendRedirect(LIT_VIEW_LOGIN);
-            return;
-        }
+
+        // Codigo para mostrar equipos en el menuPrincipalAdmin.jsp.
+        PartidosJpaController pjc = Dao.getPartidosJpaController();
+
+        List<Partidos> listaPartido = pjc.findPartidosEntities();
+
+        request.setAttribute("listaPartido", listaPartido);
+        request.getRequestDispatcher("/Grafica").include(request, response);
+        request.getRequestDispatcher("/menuPrincipalUsuario.jsp").forward(request, response);
+
+//        
+//        HttpSession session = request.getSession();
+//        if (session != null) {
+//            //cuando voy del controlador a la vista usar el forward!!!!!!!!!
+//            response.sendRedirect("/menuPrincipalUsuario.jsp");
+//            return;
+//        } else {
+//            // La sesión no existe o ha expirado, redirigir a la página de inicio.html
+//            response.sendRedirect(LIT_VIEW_LOGIN);
+//            return;
+//        }
     }
 
 }

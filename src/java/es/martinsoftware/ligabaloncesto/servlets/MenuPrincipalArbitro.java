@@ -75,12 +75,10 @@ public class MenuPrincipalArbitro extends HttpServlet {
         PartidosJpaController pjc = Dao.getPartidosJpaController();
         List<Partidos> partidos = pjc.findPartidosEntities();
         request.setAttribute("listaPartido", partidos);
-        
+
         List<Partidos> partido = pjc.findPartidosEntities();
         request.setAttribute("partido", partido);
-        
-            
-    
+
         request.getRequestDispatcher("/Grafica").include(request, response);
         request.getRequestDispatcher("/menuPrincipalArbitro.jsp").forward(request, response);
     }

@@ -139,7 +139,7 @@
                         >
                         <span>Estas logueado como:
                             <br/>
-                             <span class="mostrarDatosSesion"><%= ((Usuarios) session.getAttribute("usuario")).getNombre()%></span>
+                            <span class="mostrarDatosSesion"><%= ((Usuarios) session.getAttribute("usuario")).getNombre()%></span>
                         </span>
                         <br/>
                         Cerrar sesión
