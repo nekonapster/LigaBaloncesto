@@ -97,9 +97,9 @@ public class CargarDatos extends HttpServlet {
 
             List<Partidos> partido = pjc.findPartidosEntities();
             List<Partidos> partidos = pjc.findPartidosEntities();
-            
+
             request.setAttribute("listaPartido", partidos);
-            
+
             request.setAttribute("partido", partido);
             request.getRequestDispatcher("/menuPrincipalArbitro.jsp").forward(request, response);
 

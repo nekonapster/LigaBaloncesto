@@ -17,7 +17,7 @@
 
     </head>
     <body>
-        <table class="table table-sm table-striped table-hover">
+        <table class="table table-sm table-striped table-hover">   
             <thead class="table-dark ">
                 <tr>
                     <td class="liga-column">Fecha</td>
